@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    luoo落网音乐 下载工具
+{% endblock %}
+{% block contents %}
+    <div class="jumbotron">
+        <h1>欢迎使用</h1>
+        <p>请输入所要下载的专辑url</p>
+        <p>比如：http://www.luoo.net/vol/index/1373</p>
+
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">URL</span>
+            <input type="text" class="form-control" placeholder="专辑url" aria-describedby="sizing-addon1" id="url">
+        </div>
+        <p><input type="submit" value="搜索" class="btn btn-primary btn-lg" onclick="search()"></p>
+        <div id="main">
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            document.getElementById('main').innerHTML = "";
+        }
+
+        function ajaxIint() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            return xmlhttp;
+        }
+
+        function search() {
+            var searchAjax = ajaxIint();
+            document.getElementById('main').innerHTML = "";
+            var str = document.getElementById('url').value;
+            searchAjax.onreadystatechange = function () {
+                if (searchAjax.readyState == 4 && searchAjax.status == 200) {
+                    result = JSON.parse(searchAjax.responseText);
+                    for (i = 0; i < result.length; i++) {
+                        document.getElementById('main').innerHTML += "<div class='input-group input-group-lg' id='next2'><span class='input-group-addon'><a id='detal' href='" + result[i][1] + "' target='_blank'> 歌曲名（点我点我^_^）</a></span><input type='text' class='form-control' value='" + result[i][0] + "' aria-describedby='sizing-addon1' id='name'></div>";
+                    }
+                }
+            }
+            searchAjax.open("GET", "check_luoo?url=" + str, true);
+            searchAjax.send();
+        }
+    </script>
+    <style type="text/css">
+        .jumbotron {
+            text-align: center;
+        }
+
+        .input-group.input-group-lg {
+            width: 65%;
+            margin-bottom: 24px;
+            margin: 16px auto;
+        }
+
+        #next1 #next2 {
+            text-align: center;
+            width: 85%;
+        }
+    </style>
+{% endblock %}

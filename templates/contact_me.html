@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block link_files %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+{% block title %}
+    Jemmy的网站|联系我
+{% endblock %}
+{% block nav_class3 %}active{% endblock %}
+{% block contents %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>你好！</h1>
+            <p>欢迎访问我的网站，联系我请发邮件至hujm20151021@gmail.com。</p>
+            <p>源代码请移步github</p>
+            <p><a class="btn btn-primary btn-lg" href="https://github.com/JemmyH/jemmy-s_blog" role="button"
+                  target="_blank">点击跳转至github.com</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+.sidebar {
+    width: 20%;
+    float: left;
+    display: block;
+}
+
+.content {
+    width: 80%;
+    float: right;
+    display: block;
+}
+.footer{
+    display: block;
+    text-align: center;
+}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Jemmy的网站|游戏 拼图
+{% endblock %}
+{% block link_files %}
+    <link href="{% static 'css/demo.css' %}" rel="stylesheet">
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+    <style>
+
+        iframe-wrap {
+            height: 800px;
+            overflow: visible;
+            top: 50px;
+            z-index: 50;
+            margin-bottom: 20px;
+        }
+
+        div.footer {
+            display: none;
+        }
+    </style>
+
+    <script src="{% static 'js/hm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.qrcode.min.js' %}"></script>
+{% endblock %}
+{% block contents %}
+    <div id="iframe-wrap">
+        <iframe id="iframe" src="{% url 'iframe' %}" frameborder="0" width="100%" height="520px">
+        </iframe>
+        <p style="text-align: center;margin: 10px;color: red">非原创，但是找不到源网站了……</p>
+    </div>
+{% endblock %}

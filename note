@@ -1,0 +1,9 @@
+### 1. ContentTypes实例
+```python
+from django.contrib.contenttypes.models import ContentType
+# app_label:模型所属应用名称 model:应用内模型名称
+a = ContentType.objects.get(app_label='blog',model='blog')
+a.get_object_for_this_type(title='测试第12篇')  #返回<Blog: 测试第12篇>
+a.model_class()   # 获取当前ContentType类型所代表的模型类
+# 至此可完成查找模型的操作
+```

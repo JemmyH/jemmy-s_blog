@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block link_files %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="{% static 'js/highcharts.js' %}"></script>
+{% endblock %}
+{% block title %}
+    Jemmy的网站|主页
+{% endblock %}
+{% block nav_class1 %}active{% endblock %}
+{% block contents %}
+    <div class="container">
+        <div id="container_in"></div>
+        <script>
+            var options = {
+                chart: {type: 'line'},
+                title: {text: null},
+                xAxis: {
+                    categories: {{ dates|safe }},
+                    tickmarkPlacement: 'on',
+                    title: {text: '前7日阅读量变化'},
+                },
+                yAxis: {
+                    title: {text: null},
+                    labels: {enabled: false},
+                    gridLineDashStyle: 'Dash',
+                },
+                series: [{
+                    name: '阅读量',
+                    data: {{ read_nums }}
+                }],
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                legend: {enabled: false},
+                credits: {enabled: false},
+            };
+            var chart = Highcharts.chart('container_in', options);
+        </script>
+        <div class="panel panel-default">
+            <div class="panel-heading">历史阅览量排行榜</div>
+            <div class="panel-body">
+                {% for b in most_popular %}
+                    <div class="blog">
+                        <div class="list-group">
+                            <a href="{% url 'blog_detail' b.content_object.pk %}"
+                               class="list-group-item active">{{ b.content_object.title }}&nbsp;&nbsp;(分类：{{ b.content_object.blog_type }})</a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="blog">
+                        <h3>暂无博客，敬请期待</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

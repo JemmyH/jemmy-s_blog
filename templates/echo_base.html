@@ -1,0 +1,78 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://p9doppo4j.bkt.clouddn.com/th.jpeg">
+    <link href="{% static 'css/bootstrap_3.3.7_css_bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+</head>
+<style type="text/css">
+    .navbar-wrapper {
+        position: static;
+    }
+</style>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'home' %}">JemmyH 的网站</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="{% block index_is_active %}{% endblock %}"><a href="{% url 'home' %}">主页</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle"
+                               data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">工具
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">音乐</li>
+                                <li><a href="{% url 'echo' %}">echo</a></li>
+                                <li><a href="{% url 'netease' %}">网易云音乐</a></li>
+                                <li><a href="{% url 'luoo' %}">落网</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">电子书</li>
+                                <li><a href="">待定</a></li>
+                                <li><a href="">待定</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+
+{% block content %}{% endblock %}
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap_3.3.7_js_bootstrap.min.js' %}"></script>
+<script src="{% static 'js/holder.min.js' %}"></script>
+<script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+
+
+<div class="foot" style="text-align: center">
+    <p>@JemmyH 版权所有</p>
+</div>
+</body>
+</html>

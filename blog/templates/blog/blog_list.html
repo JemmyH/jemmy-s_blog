@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    博客
+{% endblock %}
+{% block link_files %}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+{% block nav_class2 %}active{% endblock %}
+{% block contents %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">博客列表</div>
+                    <div class="panel-body">
+                        {% for b in blogs %}
+                            <div class="blog">
+                                <div class="list-group">
+                                    <a href="{% url 'blog_detail' b.pk %}"
+                                       class="list-group-item active">{{ b.title }}&nbsp;&nbsp;(分类：{{ b.blog_type }})</a>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="blog">
+                                <h3>暂无博客，敬请期待</h3>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="paginator" style="text-align: center;">
+                    <ul class="pagination">
+                        {# 上一页 #}
+                        <li>
+                            {% if page_of_blogs.has_previous %}
+                                <a href="?page={{ page_of_blogs.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            {% else %}
+                                <span aria-hidden="true">&laquo;</span>
+                            {% endif %}
+                        </li>
+                        {# 全部页码 #}
+                        {% for page_num in page_range %}
+                            {% if page_num == page_of_blogs.number %}
+                                <li class="active"><span>{{ page_num }}</span></li>
+                            {% else %}
+                                {% if page_num == '...' %}
+                                    <li><span>{{ page_num }}</span></li>
+                                {% else %}
+                                    <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {# 下一页 #}
+                        <li>
+                            {% if page_of_blogs.has_next %}
+                                <a href="?page={{ page_of_blogs.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            {% else %}
+                                <span aria-hidden="true">&raquo;</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-4 col-md-3 col-lg-2">
+                <div class="list-group">
+                    <span href="#" class="list-group-item active">
+                        博客分类
+                    </span>
+
+                    {% for blog_type in blog_types %}
+                        <a href="{% url 'blogs_with_type' blog_type.pk %}" class="list-group-item">
+                            {{ blog_type.blog_type }} ({{ blog_type.blog_count }})
+                        </a>
+                    {% empty %}
+                        <a class="list-group-item">暂无分类</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
